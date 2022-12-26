@@ -1,20 +1,39 @@
 ---
-- name: Ensure group 'developers' exists
+- name: Create group "developers"
   group:
     name: developers
     state: present
+
+- name: Grant developers root
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    line: "%developers ALL=(ALL) ALL"
+    create: yes
+
+- name: Disable password prompt for sudo
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    line: "%developers ALL=(ALL) NOPASSWD: ALL"
+    create: yes
+
   
-- name: Create the user 'bender'
+- name: Create user 'bender'
   user:
     name: bender
     shell: /bin/bash
-    password: $6$lhcTF4NOKvF3nbv$KGxxNRhx0l/ARzIhAHKFcibOmKv6VtmHStNUtv6tqQz54hOLAKGIOwO/GSU2Ba7yUOz8rwljZx02bwO0RaeWa.
-  
-- name: Assign 'bender' to the 'developers' group
+    # password: "!QAZ2wsx3edc4rfv"
+
+- name: Add 'bender' to the 'developers' group
   user:
     name: bender
     groups: developers
     append: yes
+
+- name: Stop sshd service
+  command: sudo systemctl stop sshd
+
+- name: Start sshd service
+  command: sudo systemctl start sshd
   
 - name: Create a directory named 'engineering'
   file:
