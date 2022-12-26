@@ -1,0 +1,44 @@
+---
+- name: Configure VM
+  hosts: all
+  become: yes
+  become_method: sudo
+  remote_user: ubuntu
+  tasks:
+    - name: Make sure host is reachable
+      ansible.builtin.ping:
+
+    - name: Install and configure 'pam_pwquality
+      ansible.builtin.import_tasks:
+        file: pam_pwquality.yaml
+
+    - name: Create user, group, file access and enforce complex password
+      ansible.builtin.import_tasks:
+        file: user_and_group.yaml
+
+    - name: Set Authorized key file from local user
+      ansible.builtin.import_tasks:
+        file: authorized_keys.yaml
+
+    - name: Configure SSH to setup public key and two-factor authentication (MFA)
+      ansible.builtin.import_tasks:
+        file: two_factor.yaml
+
+    - name: Installing the Greeting Web Application
+      ansible.builtin.import_tasks:
+        file: web_application.yaml
+
+    - name: Creating sudoers file
+      ansible.builtin.import_tasks:
+        file: sudoers.yaml
+
+    - name: Firewall rules
+      ansible.builtin.import_tasks:
+        file: firewall.yaml
+
+  handlers:
+    - name: Restarting sshd service
+      ansible.builtin.import_tasks:
+        file: handlers/restart_sshd.yaml
+      
+    

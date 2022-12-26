@@ -1,0 +1,19 @@
+apiVersion: skaffold/v2beta19
+kind: Config
+build:
+  local: {}
+    #@tryImportMissing: true
+  tagPolicy:
+    inputDigest: {}
+  artifacts:
+  - image: dftd/telnet-server
+test:
+- image: dftd/telnet-server
+  custom:
+  - command: go test ./... -v
+  structureTests:
+  - ./container-tests/command-and-metadata-test.yaml
+deploy:
+  kubectl:
+    manifests:
+    - kubernetes/*
