@@ -13,7 +13,5 @@ Here is a quick overview of each directory:
 
 * _monitoring_: Contains the k8s manifest files to install Prometheus, Alertmanager, and Grafana.
 
-* _runbooks_: Contains a simple runbook for `telnet-server` and examples of a runbook broken up by alert. These are used in the alerts for Chapter 9.
-
 * _telnet-server_: Contains the sample application that is used throughout two-thirds of the book.
 
