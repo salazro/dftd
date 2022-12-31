@@ -7,11 +7,8 @@ This repo is for the book [DevOps for the Desperate](https://nostarch.com/devops
 ## Directories
 
 Each one of these directories contain different material for different parts in the book.
-Here is a quick overview of each directory:
+Here is a quick overview of each tasks to follow along in the first section of the book.
 
-* _ansible_: Contains the playbook and tasks to follow along in the first section of the book.
-
-* _monitoring_: Contains the k8s manifest files to install Prometheus, Alertmanager, and Grafana.
 
 * _telnet-server_: Contains the sample application that is used throughout two-thirds of the book.
 
